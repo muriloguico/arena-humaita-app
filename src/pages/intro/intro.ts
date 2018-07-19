@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
+import { SignInPage } from '../sign-in/sign-in';
 
 /**
  * Generated class for the IntroPage page.
@@ -25,6 +26,10 @@ export class IntroPage {
 
   goToTabsPage(){
     this.navCtrl.push(TabsPage);
+  }
+
+  goToSignInPage(){
+    this.navCtrl.push(SignInPage);
   }
 
 }

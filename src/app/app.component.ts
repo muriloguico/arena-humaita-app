@@ -5,6 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { IntroPage } from '../pages/intro/intro';
 import { ConfigProvider } from '../providers/config/config';
 import { TabsPage } from '../pages/tabs/tabs';
+import { SignInPage } from '../pages/sign-in/sign-in';
+
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   templateUrl: 'app.html',
@@ -21,7 +24,8 @@ export class MyApp {
     platform: Platform, 
     statusBar: StatusBar, 
     splashScreen: SplashScreen,
-    configProvider: ConfigProvider
+    configProvider: ConfigProvider,
+    afAuth: AngularFireAuth
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -34,7 +38,13 @@ export class MyApp {
         configProvider.setConfigData(false);
       }
       else{
-        this.rootPage = TabsPage;
+        afAuth.authState.subscribe(user => {
+          if (user) {
+            this.rootPage = TabsPage;
+          } else {
+            this.rootPage = SignInPage;
+          }
+        });
       }
 
       statusBar.styleDefault();
